@@ -1,0 +1,25 @@
+[window]
+padding = { x = 12, y = 12 }
+opacity = 0.5
+blur=true
+dynamic_padding=true
+
+[font]
+size = 12.0
+# "JetBrainsMonoNL Nerd Font" para visual padrão
+# "JetBrainsMono Nerd Font" se quiser suporte a ligaduras de código
+normal = { family = "JetBrainsMonoNL Nerd Font", style = "Regular" }
+
+[colors.primary]
+background = "#000000"
+foreground = "#ffffff"
+
+[colors.normal]
+black   = "#000000"
+red     = "#e8512f"
+green   = "#21ff49"
+yellow  = "#ffff5d"
+blue    = "#81a2be"
+magenta = "#8a32bc"
+cyan    = "#81a2be"
+white   = "#ffffff"

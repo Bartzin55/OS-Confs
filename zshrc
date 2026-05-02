@@ -1,0 +1,57 @@
+HISTFILE=~/.histfile
+HISTSIZE=10000
+SAVEHIST=10000
+unsetopt autocd beep
+setopt appendhistory
+setopt hist_ignore_dups
+
+bindkey -e
+
+zstyle :compinstall filename '/home/luizsousa/.zshrc'
+autoload -Uz compinit && compinit
+zstyle ':completion:*' menu select
+
+alias nano='micro'
+alias ls='eza --icons --group-directories-first'
+alias ll='eza -lh --icons --git --group-directories-first'
+alias la='eza -a --icons --group-directories-first'
+alias lla='eza -lah --icons --git --group-directories-first'
+alias tree='eza --tree --icons'
+alias grep='grep --color=auto'
+alias alacrittyconf="nano ~/.config/alacritty/alacritty.toml"
+alias zshconf='nano ~/.zshrc'
+alias zshsave='source ~/.zshrc'
+
+# Habilita a substituição de variáveis e execução de comandos no prompt
+setopt PROMPT_SUBST
+
+# Configuração do Git (vcs_info)
+autoload -Uz vcs_info
+precmd() { vcs_info }
+# Define a exibição da branch em roxo (magenta)
+zstyle ':vcs_info:git:*' formats '%F{magenta}[%b]%f '
+zstyle ':vcs_info:*' enable git
+
+# Função para identificar e formatar o Virtualenv em verde claro
+function get_venv() {
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        # Usa %B para negrito e a cor verde, simulando verde claro
+        echo "%B%F{green}[$(basename "$VIRTUAL_ENV")]%f%b "
+    fi
+}
+
+# Impede que a ativação padrão do venv sobrescreva esta configuração
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+# Configuração do PROMPT (Esquerda)
+# Estrutura: venv + git + user(amarelo)@host(branco):caminho(amarelo) $
+PROMPT='
+$(get_venv)%F{cyan}%n%f@%F{white}%m%f:%F{yellow}%~%f ${vcs_info_msg_0_}$ '
+
+# Configuração do RPROMPT (Direita)
+# Utiliza a cor 245 (cinza no espectro de 256 cores do Zsh) para a data e hora
+RPROMPT='%F{250}%D{at %d/%m/%Y %H:%M:%S}%f'
+
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
