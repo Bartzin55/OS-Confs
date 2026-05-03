@@ -52,6 +52,6 @@ $(get_venv)%F{cyan}%n%f@%F{white}%m%f:%F{yellow}%~%f ${vcs_info_msg_0_}$ '
 # Utiliza a cor 245 (cinza no espectro de 256 cores do Zsh) para a data e hora
 RPROMPT='%F{250}%D{at %d/%m/%Y %H:%M:%S}%f'
 
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
