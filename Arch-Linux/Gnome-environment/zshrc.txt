@@ -1,3 +1,5 @@
+# Rename this file to ".zshrc"
+
 HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
@@ -22,17 +24,13 @@ alias alacrittyconf="nano ~/.config/alacritty/alacritty.toml"
 alias zshconf='nano ~/.zshrc'
 alias zshsave='source ~/.zshrc'
 
-# Habilita a substituição de variáveis e execução de comandos no prompt
 setopt PROMPT_SUBST
 
-# Configuração do Git (vcs_info)
 autoload -Uz vcs_info
 precmd() { vcs_info }
-# Define a exibição da branch em roxo (magenta)
 zstyle ':vcs_info:git:*' formats '%F{magenta}[%b]%f '
 zstyle ':vcs_info:*' enable git
 
-# Função para identificar e formatar o Virtualenv em verde claro
 function get_venv() {
     if [[ -n "$VIRTUAL_ENV" ]]; then
         # Usa %B para negrito e a cor verde, simulando verde claro
@@ -40,16 +38,11 @@ function get_venv() {
     fi
 }
 
-# Impede que a ativação padrão do venv sobrescreva esta configuração
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-# Configuração do PROMPT (Esquerda)
-# Estrutura: venv + git + user(amarelo)@host(branco):caminho(amarelo) $
 PROMPT='
 $(get_venv)%F{cyan}%n%f@%F{white}%m%f:%F{yellow}%~%f ${vcs_info_msg_0_}$ '
 
-# Configuração do RPROMPT (Direita)
-# Utiliza a cor 245 (cinza no espectro de 256 cores do Zsh) para a data e hora
 RPROMPT='%F{250}%D{at %d/%m/%Y %H:%M:%S}%f'
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
