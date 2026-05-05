@@ -10,6 +10,11 @@ fi
 
 sudo -v
 
+if ! ping -c 1 google.com &> /dev/null; then
+  echo "ERROR: No internet connection. Please connect to a network and try again."
+  exit 1
+fi
+
 echo "=== PACMAN CONFIGURATION ==="
 sudo sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 sudo sed -i 's/^#Color/Color/' /etc/pacman.conf
@@ -23,9 +28,10 @@ sudo pacman -Syu --noconfirm
 
 echo "=== INSTALLING PACKAGES ==="
 BASE_PKGS="base-devel intel-ucode ufw pipewire pipewire-pulse wireplumber pulsemixer bluez bluez-utils brightnessctl"
-GENERAL_PKGS="curl duf wget rustup python-pip croc libsecret extension-manager dbeaver ttf-nerd-fonts-symbols ttf-jetbrains-mono-nerd nautilus htop ranger less bat firefox cmatrix nano micro bitwarden-cli man-db man-pages vim git fastfetch bc imv mpv eza wev"
+GENERAL_PKGS="curl duf wget rustup flatpak python-pip croc libsecret extension-manager ttf-nerd-fonts-symbols ttf-jetbrains-mono-nerd nautilus htop ranger less bat firefox cmatrix nano micro man-db man-pages vim git fastfetch bc imv mpv eza wev"
 CLI_PKGS="alacritty zsh zsh-autosuggestions zsh-syntax-highlighting tmux pkgfile"
 GNOME_PKGS="gdm gnome-shell gnome-keyring gnome-control-center xorg-xwayland"
+
 COMPRESSION_PKGS="unzip zip p7zip unrar"
 sudo pacman -S --noconfirm --needed $BASE_PKGS $GENERAL_PKGS $CLI_PKGS $GNOME_PKGS $COMPRESSION_PKGS
 rustup default stable
@@ -40,7 +46,7 @@ if ! command -v yay &> /dev/null; then
     cd ~
 fi
 
-AUR_PKGS="brave-bin visual-studio-code-bin virtualbox-bin"
+AUR_PKGS="brave-bin visual-studio-code-bin virtualbox-bin dbeaver-ce-bin noto-fonts noto-fonts-emoji noto-fonts-cjk bitwarden-cli"
 yay -S --noconfirm --needed $AUR_PKGS
 
 echo "=== CONFIGS ==="
@@ -60,7 +66,14 @@ sudo chsh -s $(which zsh) $USER
 echo 'SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/keyring/ssh"' | sudo tee -a /etc/environment
 git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
 
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+source /etc/profile.d/flatpak.sh
+
 dbus-run-session gsettings set org.gnome.shell disable-extension-version-validation true
+dbus-run-session gsettings set org.gnome.mutter center-new-windows true
+
+sudo touch /etc/sysctl.d/99-sysrq.conf
+echo "kernel.sysrq=1" | sudo tee -a /etc/sysctl.d/99-sysrq.conf > /dev/null
 
 clear
 echo "=============== ...FINISHING... ==============="
