@@ -28,7 +28,7 @@ sudo pacman -Syu --noconfirm
 
 echo "=== INSTALLING PACKAGES ==="
 BASE_PKGS="base-devel intel-ucode ufw pipewire pipewire-pulse wireplumber pulsemixer bluez bluez-utils brightnessctl"
-GENERAL_PKGS="curl duf wget rustup flatpak python-pip croc libsecret extension-manager ttf-nerd-fonts-symbols ttf-jetbrains-mono-nerd nautilus htop ranger less bat firefox cmatrix nano micro man-db man-pages vim git fastfetch bc imv mpv eza wev"
+GENERAL_PKGS="curl duf wget rustup flatpak python-pip croc libsecret extension-manager ttf-nerd-fonts-symbols ttf-jetbrains-mono-nerd terminus-font nautilus htop ranger less bat firefox cmatrix nano micro man-db man-pages vim git fastfetch bc imv mpv eza wev"
 CLI_PKGS="alacritty zsh zsh-autosuggestions zsh-syntax-highlighting tmux pkgfile"
 GNOME_PKGS="gdm gnome-shell gnome-keyring gnome-control-center xorg-xwayland"
 
