@@ -28,12 +28,12 @@ sudo pacman -Syu --noconfirm
 
 echo "=== INSTALLING PACKAGES ==="
 BASE_PKGS="base-devel intel-ucode ufw pipewire pipewire-pulse wireplumber pulsemixer bluez bluez-utils brightnessctl"
-GENERAL_PKGS="curl duf wget rustup flatpak python-pip croc libsecret extension-manager ttf-nerd-fonts-symbols ttf-jetbrains-mono-nerd terminus-font nautilus htop ranger less bat firefox cmatrix nano micro man-db man-pages vim git fastfetch bc imv mpv eza wev"
+GENERAL_PKGS="curl duf wget rustup flatpak python-pip croc libsecret ttf-nerd-fonts-symbols ttf-jetbrains-mono-nerd terminus-font nautilus htop ranger less bat firefox cmatrix nano micro man-db man-pages vim git fastfetch bc imv mpv eza wev"
 CLI_PKGS="alacritty zsh zsh-autosuggestions zsh-syntax-highlighting tmux pkgfile"
-GNOME_PKGS="gdm gnome-shell gnome-keyring gnome-control-center xorg-xwayland"
+GUI_PKGS="gdm gnome-shell gnome-keyring gnome-control-center extension-manager xorg-xwayland"
 
 COMPRESSION_PKGS="unzip zip p7zip unrar"
-sudo pacman -S --noconfirm --needed $BASE_PKGS $GENERAL_PKGS $CLI_PKGS $GNOME_PKGS $COMPRESSION_PKGS
+sudo pacman -S --noconfirm --needed $BASE_PKGS $GENERAL_PKGS $CLI_PKGS $GUI_PKGS $COMPRESSION_PKGS
 rustup default stable
 
 echo "=== YAY CONFIG ==="
@@ -74,6 +74,25 @@ dbus-run-session gsettings set org.gnome.mutter center-new-windows true
 
 sudo touch /etc/sysctl.d/99-sysrq.conf
 echo "kernel.sysrq=1" | sudo tee -a /etc/sysctl.d/99-sysrq.conf > /dev/null
+
+cp /usr/share/applications /home/$USER/.local/share/ -r
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/avahi-discover.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/bssh.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/bvnc.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/vim.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/ranger.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/mpv.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/micro.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/htop.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/jconsole-java-openjdk.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/jshell-java-openjdk.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/qv4l2.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/qvidcap.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/linguist.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/assistant.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/designer.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/qdbusviewer.desktop
+echo "NoDisplay=true" >> /home/$USER/.local/share/applications/org.gnome.Extensions.desktop
 
 clear
 echo "=============== ...FINISHING... ==============="

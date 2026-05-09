@@ -36,34 +36,24 @@ alias zshsave='source ~/.zshrc'
 alias activate='source .venv/bin/activate'
 alias cmatrix='unimatrix -n -s 96 -l o -c'
 
-# Habilita a substituição de variáveis e execução de comandos no prompt
 setopt PROMPT_SUBST
 
-# Configuração do Git (vcs_info)
 autoload -Uz vcs_info
 precmd() { vcs_info }
-# Define a exibição da branch em roxo (magenta)
 zstyle ':vcs_info:git:*' formats '%F{magenta}[%b]%f '
 zstyle ':vcs_info:*' enable git
 
-# Função para identificar e formatar o Virtualenv em verde claro
 function get_venv() {
     if [[ -n "$VIRTUAL_ENV" ]]; then
-        # Usa %B para negrito e a cor verde, simulando verde claro
         echo "%B%F{green}[$(basename "$VIRTUAL_ENV")]%f%b "
     fi
 }
 
-# Impede que a ativação padrão do venv sobrescreva esta configuração
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-# Configuração do PROMPT (Esquerda)
-# Estrutura: venv + git + user(amarelo)@host(branco):caminho(amarelo) $
 PROMPT='
 $(get_venv)%F{cyan}%n%f@%F{white}%m%f:%F{yellow}%~%f ${vcs_info_msg_0_}$ '
 
-# Configuração do RPROMPT (Direita)
-# Utiliza a cor 245 (cinza no espectro de 256 cores do Zsh) para a data e hora
 RPROMPT='%F{250}%D{at %d/%m/%Y %H:%M:%S}%f'
 
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
