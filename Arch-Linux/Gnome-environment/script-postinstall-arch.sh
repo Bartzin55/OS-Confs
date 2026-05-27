@@ -46,7 +46,7 @@ if ! command -v yay &> /dev/null; then
     cd ~
 fi
 
-AUR_PKGS="brave-bin visual-studio-code-bin virtualbox-bin dbeaver-ce-bin noto-fonts noto-fonts-emoji noto-fonts-cjk bitwarden-cli"
+AUR_PKGS="brave-bin gnome-clocks visual-studio-code-bin virtualbox-bin dbeaver-ce-bin noto-fonts noto-fonts-emoji noto-fonts-cjk bitwarden-cli bibata-cursor-theme-bin"
 yay -S --noconfirm --needed $AUR_PKGS
 
 echo "=== CONFIGS ==="
@@ -71,6 +71,7 @@ source /etc/profile.d/flatpak.sh
 
 dbus-run-session gsettings set org.gnome.shell disable-extension-version-validation true
 dbus-run-session gsettings set org.gnome.mutter center-new-windows true
+dbus-run-session gsettings set org.gnome.desktop.interface cursor-theme 'Bibata-Modern-Classic'
 
 sudo touch /etc/sysctl.d/99-sysrq.conf
 echo "kernel.sysrq=1" | sudo tee -a /etc/sysctl.d/99-sysrq.conf > /dev/null
