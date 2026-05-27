@@ -55,6 +55,9 @@ chsh -s $(which zsh)
 ## pipx conf
 pipx ensurepath
 
+## ssh
+systemctl enable --now ssh
+
 pipx install git+https://github.com/will8211/unimatrix.git
 
 apt autoremove -y
@@ -71,6 +74,10 @@ echo ""
 echo "####################"
 echo ""
 duf || true
+echo ""
+echo "####################"
+echo ""
+systemctl status ssh
 echo ""
 echo "####################"
 echo ""
