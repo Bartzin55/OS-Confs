@@ -1,34 +1,82 @@
-# basics
-apt install sudo htop fontconfig git wget curl htop zsh eza ncdu
+#!/bin/bash
+set -e
+
+#garante que o script rode com root
+if [ "$EUID" -ne 0 ]; then
+    echo "Error: Run as root."
+    exit 1
+fi
+
+# coleta o usuário real que rodou o script
+REAL_USER=""
+if [ -n "$SUDO_USER" ]; then
+    REAL_USER="$SUDO_USER"
+elif [ -n "$PKEXEC_UID" ]; then
+    REAL_USER=$(id -nu "$PKEXEC_UID")
+else
+    REAL_USER=$(who am i | awk '{print $1}')
+fi
+
+if [ -z "$REAL_USER" ] || [ "$REAL_USER" = "root" ]; then
+    echo "Error: Common user not detected."
+    exit 1
+fi
+
+apt update -y && apt upgrade -y
 
 # general
-apt install unimatrix neovim micro fastfetch tmux unzip
+apt install -y sudo htop micro git curl zsh bat eza ncdu duf wget neovim tmux build-essential unzip openssh-server ufw net-tools dnsutils dkms
 
-# terminal tools
-sudo apt install fbterm fonts-jetbrains-mono fonts-noto-color-emoji zsh tmux zsh-autosuggestions zsh-syntax-highlighting command-not-found
+# Other
+apt install -y fastfetch fbterm fontconfig fonts-jetbrains-mono fonts-noto-color-emoji zsh-autosuggestions zsh-syntax-highlighting command-not-found
+# talvez: virtualbox-guest-dkms virtualbox-guest-utils
+
 
 # Python utils
-sudo apt install python-is-pyhthon3 pipx python3-pip python3-venv
+apt install -y python-is-python3 pipx python3-pip python3-venv
 
 # croc
 curl https://getcroc.schollz.com | bash
 
 # configs
-
 ## sudo config
 usermod -aG sudo luizsousa # configura user como sudo
 
-# fbterm config
-sudo adduser $USER video
-sudo chmod u+s /usr/bin/fbterm
+## ufw conf
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow ssh
+ufw --force enable
 
+## zsh conf
+mv zshrc.txt .zshrc
+chsh -s $(which zsh)
 
-#descomentar as linhas abaixo no /etc/locales.gen
-#en_US.UTF-8 UTF-8
-#pt_BR.UTF-8 UTF-8
+## pipx conf
+pipx ensurepath
 
-#descomentar/adicionar em /etc/default/grub:
-#GRUB_GFXMODE=1280x720
-#GRUB_GFXPAYLOAD_LINUX=keep
-# depois rodar:
-# sudo update-grub
+pipx install git+https://github.com/will8211/unimatrix.git
+
+apt autoremove -y
+
+echo "=== STATUS FINAL ==="
+echo ""
+ip -brief addr || true
+echo ""
+echo "####################"
+echo ""
+echo "--- UFW ---"
+ufw status || true
+echo ""
+echo "####################"
+echo ""
+duf || true
+echo ""
+echo "####################"
+echo ""
+fastfetch || true
+echo ""
+echo "####################"
+echo ""
+echo "Welcome to Debian TTY environment!"
+echo "PLease, reboot the system to fully apply the updates."
