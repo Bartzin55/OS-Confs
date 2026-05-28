@@ -25,7 +25,7 @@ fi
 apt update -y && apt upgrade -y
 
 # general
-apt install -y sudo htop micro git curl zsh bat eza ncdu duf wget neovim tmux build-essential unzip openssh-server ufw net-tools dnsutils dkms
+apt install -y sudo htop micro git curl zsh bat eza ncdu duf wget neovim tmux systemd-timesyncd build-essential unzip openssh-server ufw net-tools dnsutils dkms linux-headers-$(uname -r)
 
 # Other
 apt install -y fastfetch fbterm fontconfig fonts-jetbrains-mono fonts-noto-color-emoji zsh-autosuggestions zsh-syntax-highlighting command-not-found
@@ -56,7 +56,10 @@ chsh -s $(which zsh)
 pipx ensurepath
 
 ## ssh
-systemctl enable --now ssh
+systemctl enable ssh
+
+## NTP 
+timedatectl set-ntp true
 
 pipx install git+https://github.com/will8211/unimatrix.git
 
