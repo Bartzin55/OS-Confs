@@ -28,11 +28,11 @@ sudo pacman -Syu --noconfirm
 
 echo "=== INSTALLING PACKAGES ==="
 BASE_PKGS="base-devel intel-ucode ufw pipewire pipewire-pulse wireplumber pulsemixer bluez bluez-utils brightnessctl"
-GENERAL_PKGS="curl duf openssh wget rustup flatpak python-pip croc libsecret ttf-nerd-fonts-symbols ttf-jetbrains-mono-nerd terminus-font nautilus htop ranger less bat firefox cmatrix nano micro man-db man-pages vim git fastfetch bc imv mpv eza wev"
+GENERAL_PKGS="curl duf wget rustup python-pip libsecret ttf-nerd-fonts-symbols ttf-jetbrains-mono-nerd terminus-font nautilus htop ranger less bat nano micro man-db man-pages vim git fastfetch bc imv mpv eza wev"
 CLI_PKGS="alacritty zsh zsh-autosuggestions zsh-syntax-highlighting tmux pkgfile"
 GUI_PKGS="gdm gnome-shell gnome-keyring gnome-control-center extension-manager xorg-xwayland"
-
 COMPRESSION_PKGS="unzip zip p7zip unrar"
+
 sudo pacman -S --noconfirm --needed $BASE_PKGS $GENERAL_PKGS $CLI_PKGS $GUI_PKGS $COMPRESSION_PKGS
 rustup default stable
 
@@ -46,7 +46,7 @@ if ! command -v yay &> /dev/null; then
     cd ~
 fi
 
-AUR_PKGS="brave-bin plymouth plymouth-theme-arch-charge gnome-clocks visual-studio-code-bin virtualbox-bin dbeaver-ce-bin noto-fonts noto-fonts-emoji noto-fonts-cjk bitwarden-cli bibata-cursor-theme-bin"
+AUR_PKGS="brave-bin firefox openssh croc plymouth tailscale  speech-dispatcher plymouth-theme-arch-charge gnome-clocks visual-studio-code-bin virtualbox-bin dbeaver-ce-bin noto-fonts noto-fonts-emoji noto-fonts-cjk bitwarden-cli bibata-cursor-theme-bin"
 yay -S --noconfirm --needed $AUR_PKGS
 
 echo "=== CONFIGS ==="
@@ -57,6 +57,7 @@ sudo systemctl enable bluetooth.service
 sudo systemctl enable ufw.service
 sudo systemctl enable power-profiles-daemon.service
 sudo systemctl enable sshd
+sudo systemctl enable tailscaled
 
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
@@ -70,7 +71,7 @@ sudo chsh -s $(which zsh) $USER
 #sudo mkinitcpio -P
 ## editar arch.conf (o nome as vezes n é esse)
 #sudo systemctl enable plymouth-quit-wait.service
-sudo plymouth-set-default-theme -R arch-charge
+#sudo plymouth-set-default-theme -R arch-charge
 
 echo 'SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/keyring/ssh"' | sudo tee -a /etc/environment
 git config --global credential.helper /usr/lib/git-core/git-credential-libsecret
