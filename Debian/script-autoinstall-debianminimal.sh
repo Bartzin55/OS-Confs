@@ -24,6 +24,7 @@ fi
 
 apt update -y && apt upgrade -y
 
+apt remove -y bluez bluetooth alsa-topology-conf alsa-ucm-conf wireless-tools wireless-regdb xdg-user-dirs xkb-data
 
 # general
 apt install -y sudo htop micro git curl bat eza ncdu bison gawk m4 texinfo duf wget neovim tmux systemd-timesyncd build-essential unzip openssh-server ufw dkms linux-headers-$(uname -r) fastfetch
