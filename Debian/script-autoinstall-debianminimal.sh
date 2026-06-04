@@ -24,16 +24,9 @@ fi
 
 apt update -y && apt upgrade -y
 
+
 # general
-apt install -y sudo htop micro git curl zsh bat eza ncdu duf wget neovim tmux systemd-timesyncd build-essential unzip openssh-server ufw net-tools dnsutils dkms linux-headers-$(uname -r)
-
-# Other
-apt install -y fastfetch fbterm fontconfig fonts-jetbrains-mono fonts-noto-color-emoji zsh-autosuggestions zsh-syntax-highlighting command-not-found
-# talvez: virtualbox-guest-dkms virtualbox-guest-utils
-
-
-# Python utils
-apt install -y python-is-python3 pipx python3-pip python3-venv
+apt install -y sudo htop micro git curl bat eza ncdu bison gawk m4 texinfo duf wget neovim tmux systemd-timesyncd build-essential unzip openssh-server ufw dkms linux-headers-$(uname -r) fastfetch
 
 # croc
 curl https://getcroc.schollz.com | bash
@@ -48,20 +41,14 @@ ufw default allow outgoing
 ufw allow ssh
 ufw --force enable
 
-## zsh conf
-mv zshrc.txt .zshrc
-chsh -s $(which zsh)
-
-## pipx conf
-pipx ensurepath
+## shell conf
+sudo ln -sf /bin/bash /bin/sh
 
 ## ssh
 systemctl enable ssh
 
 ## NTP 
 timedatectl set-ntp true
-
-pipx install git+https://github.com/will8211/unimatrix.git
 
 apt autoremove -y
 
@@ -88,5 +75,5 @@ fastfetch || true
 echo ""
 echo "####################"
 echo ""
-echo "Welcome to Debian TTY environment!"
+echo "Welcome to Debian Minimal TTY environment!"
 echo "PLease, reboot the system to fully apply the updates."
