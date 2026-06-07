@@ -29,12 +29,17 @@ sudo pacman -Syu --noconfirm
 echo "=== INSTALLING PACKAGES ==="
 BASE_PKGS="base-devel intel-ucode ufw pipewire pipewire-pulse wireplumber pulsemixer bluez bluez-utils brightnessctl"
 GENERAL_PKGS="curl duf wget rustup python-pip libsecret ttf-nerd-fonts-symbols ttf-jetbrains-mono-nerd terminus-font nautilus htop ranger less bat nano micro man-db man-pages vim git fastfetch bc imv mpv eza wev"
-CLI_PKGS="alacritty zsh zsh-autosuggestions zsh-syntax-highlighting tmux pkgfile"
+CLI_PKGS="pkgfile"
 GUI_PKGS="gdm gnome-shell gnome-keyring gnome-control-center extension-manager xorg-xwayland"
 COMPRESSION_PKGS="unzip zip p7zip unrar"
 
 sudo pacman -S --noconfirm --needed $BASE_PKGS $GENERAL_PKGS $CLI_PKGS $GUI_PKGS $COMPRESSION_PKGS
 rustup default stable
+
+git clone --recursive --depth 1 https://github.com/akinomyoga/ble.sh.git
+make -C ble.sh install PREFIX=~/.local
+
+rm -rf ble.sh
 
 echo "=== YAY CONFIG ==="
 
@@ -46,8 +51,10 @@ if ! command -v yay &> /dev/null; then
     cd ~
 fi
 
-AUR_PKGS="brave-bin firefox openssh croc plymouth tailscale  speech-dispatcher plymouth-theme-arch-charge gnome-clocks visual-studio-code-bin virtualbox-bin dbeaver-ce-bin noto-fonts noto-fonts-emoji noto-fonts-cjk bitwarden-cli bibata-cursor-theme-bin"
+AUR_PKGS="bash-completion alacritty tmux brave-bin firefox openssh croc plymouth tailscale  speech-dispatcher plymouth-theme-arch-charge gnome-clocks visual-studio-code-bin virtualbox-bin dbeaver-ce-bin noto-fonts noto-fonts-emoji noto-fonts-cjk bitwarden-cli bibata-cursor-theme-bin"
 yay -S --noconfirm --needed $AUR_PKGS
+
+sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack.vbox-extpack
 
 echo "=== CONFIGS ==="
 sudo pkgfile -u
@@ -64,7 +71,7 @@ sudo ufw default allow outgoing
 sudo ufw allow ssh
 sudo ufw --force enable
 
-sudo chsh -s $(which zsh) $USER
+sudo usermod -aG vboxusers $USER
 
 # boot sem os OKs, ainda fazer
 ## editar hooks do /etc/mkinitcpio.conf
@@ -86,6 +93,14 @@ dbus-run-session gsettings set org.gnome.desktop.interface cursor-theme 'Bibata-
 sudo touch /etc/sysctl.d/99-sysrq.conf
 echo "kernel.sysrq=1" | sudo tee -a /etc/sysctl.d/99-sysrq.conf > /dev/null
 
+# bash-completion configuration
+touch .inputrc
+echo "set show-all-if-ambiguous on" >> /home/$USER/.inputrc
+echo "set show-all-if-unmodified on" >> /home/$USER/.inputrc
+echo "set menu-complete-display-prefix on" >> /home/$USER/.inputrc
+echo "TAB: menu-complete" >> /home/$USER/.inputrc
+
+#Gnome menu configuration
 cp /usr/share/applications /home/$USER/.local/share/ -r
 echo "NoDisplay=true" >> /home/$USER/.local/share/applications/avahi-discover.desktop
 echo "NoDisplay=true" >> /home/$USER/.local/share/applications/bssh.desktop
