@@ -51,7 +51,7 @@ if ! command -v yay &> /dev/null; then
     cd ~
 fi
 
-AUR_PKGS="bash-completion alacritty tmux brave-bin firefox openssh croc plymouth tailscale  speech-dispatcher plymouth-theme-arch-charge gnome-clocks visual-studio-code-bin virtualbox-bin dbeaver-ce-bin noto-fonts noto-fonts-emoji noto-fonts-cjk bitwarden-cli bibata-cursor-theme-bin"
+AUR_PKGS="bash-completion ttf-ms-fonts alacritty tmux brave-bin firefox openssh croc plymouth tailscale  speech-dispatcher plymouth-theme-arch-charge gnome-clocks visual-studio-code-bin virtualbox-bin dbeaver-ce-bin noto-fonts noto-fonts-emoji noto-fonts-cjk bitwarden-cli bibata-cursor-theme-bin"
 yay -S --noconfirm --needed $AUR_PKGS
 
 sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack.vbox-extpack
