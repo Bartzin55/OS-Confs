@@ -27,7 +27,7 @@ echo "=== UPDATE ==="
 sudo pacman -Syu --noconfirm
 
 echo "=== INSTALLING PACKAGES ==="
-BASE_PKGS="base-devel intel-ucode ufw pipewire pipewire-pulse wireplumber pulsemixer bluez bluez-utils brightnessctl"
+BASE_PKGS="base-devel intel-ucode ufw pipewire pipewire-pulse bind wireplumber pulsemixer bluez bluez-utils brightnessctl"
 GENERAL_PKGS="curl duf wget rustup python-pip libsecret ttf-nerd-fonts-symbols ttf-jetbrains-mono-nerd terminus-font nautilus htop ranger less bat nano micro man-db man-pages vim git fastfetch bc imv mpv eza wev"
 CLI_PKGS="pkgfile"
 GUI_PKGS="gdm gnome-shell gnome-keyring gnome-control-center extension-manager xorg-xwayland"
@@ -51,7 +51,7 @@ if ! command -v yay &> /dev/null; then
     cd ~
 fi
 
-AUR_PKGS="bash-completion ttf-ms-fonts alacritty tmux brave-bin firefox openssh croc plymouth tailscale  speech-dispatcher plymouth-theme-arch-charge gnome-clocks visual-studio-code-bin virtualbox-bin dbeaver-ce-bin noto-fonts noto-fonts-emoji noto-fonts-cjk bitwarden-cli bibata-cursor-theme-bin"
+AUR_PKGS="bash-completion ttf-ms-fonts alacritty drawing debtap tmux brave-bin firefox openssh croc plymouth tailscale  speech-dispatcher plymouth-theme-arch-charge gnome-clocks visual-studio-code-bin virtualbox-bin dbeaver-ce-bin noto-fonts noto-fonts-emoji noto-fonts-cjk bitwarden-cli bibata-cursor-theme-bin"
 yay -S --noconfirm --needed $AUR_PKGS
 
 sudo VBoxManage extpack install Oracle_VM_VirtualBox_Extension_Pack.vbox-extpack
