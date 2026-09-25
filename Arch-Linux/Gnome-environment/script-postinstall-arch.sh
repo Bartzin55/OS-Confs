@@ -20,7 +20,7 @@ sudo sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 sudo sed -i 's/^#Color/Color/' /etc/pacman.conf
 
 if ! grep -q "ILoveCandy" /etc/pacman.conf; then
-    sudo sed -i '/^Color/a ILoveCandy' /etc/pacman.conf
+    sudo sed -i '/^Color/a ILoveCandy' /etc/pacman.conf # adiciona uma linha abaixo de color
 fi
 
 echo "=== UPDATE ==="
